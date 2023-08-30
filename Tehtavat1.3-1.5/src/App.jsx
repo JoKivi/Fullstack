@@ -43,4 +43,4 @@ const App = () => {
 
 export default App
 
-*https://fullstackopen.com/osa1/komponentin_tila_ja_tapahtumankasittely
+// https://fullstackopen.com/osa1/komponentin_tila_ja_tapahtumankasittely
