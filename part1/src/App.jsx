@@ -1,33 +1,18 @@
-const Hello = (props) => {
-  console.log(props);
-  return (
-    <div>
-      <p>Hello {props.name}, you are now {props.age} years old.</p>      
-    </div>
-  )
-}
-
-const Footer = () => {
-  return (
-    <div>
-      greeting app created by 
-      <a href="https://github.com/JoKivi"> Joni</a>
-    </div>
-  )
-}
-
 const App = () => {
-  const nimi = "Pekka"
-  const ika = 24
+    const friends = [
+        // "Leevi", "Venla"
+        {name:"Leevi", age:4},
+        {name:"Venla", age:10}
+    ]
+    console.log(friends)
 
-  return (
-    <div>
-      <h1>Greetings</h1>
-      <Hello name="Maija" age={24+22} />
-      <Hello name={nimi} age={ika} />
-      <Footer />
-    </div>
-  )
+    return (
+        <div>
+            {/* <p>{friends}</p> */}
+            <p>{friends[0].name} {friends[0].age}</p>
+            <p>{friends[1].name} {friends[1].age}</p>
+        </div>
+    )
 }
 
 export default App
