@@ -16,16 +16,16 @@ const App = () => {
 
   const handleNeutralClick = () => {
     const updatedNeutral = neutral + 1
-    setGood(updatedNeutral)
-    setNeutral(good)
+    setGood(good)
+    setNeutral(updatedNeutral)
     setBad(bad)
   }
 
   const handleBadClick = () => {
     const updatedBad = bad + 1
-    setGood(updatedBad)
-    setBad(good)
+    setGood(good)
     setNeutral(neutral)
+    setBad(updatedBad)
   }
 
   return (
