@@ -32,16 +32,19 @@ const App = () => {
     setVotes(newVotes) //asetetaan uusi taulukko
   }
 
+  const maxVotes = Math.max(...votes)
+  const maxVotesIndex = votes.indexOf(maxVotes)
+
   console.log(votes)
-
-
-
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
       <Button text="vote" handleClick={clickedVoteButton} />
       <Button text="next anecdote" handleClick={clickedButton} />
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[maxVotesIndex]}</p>
+      <p>Has {maxVotes} votes</p>
     </div>
   )
 }
