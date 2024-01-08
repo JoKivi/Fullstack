@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import personService from "./services/personService"; // Oletetaan, että exporttaat defaulttina
+import React, { useEffect, useState } from 'react';
+import personService from "./services/personService";
 
 const Filter = ({ filterName, handleFilterChange }) => (
   <div>
@@ -14,16 +14,17 @@ const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, 
       number: <input value={newNumber} onChange={handleNumberChange} />
     </div>
     <div>
-      <button type="submit">add</button>
+      <button className='button-18' type="submit">add</button>
     </div>
   </form>
 );
 
-const Persons = ({ filteredPersons }) => (
+const Persons = ({ filteredPersons, onRemovePerson }) => (
   <ul>
     {filteredPersons.map((person) => (
-      <li key={person.name}>
-        {person.name} {person.number}
+      <li key={person.id}>
+        {person.name} {person.number} &nbsp;
+        <button className='button-18' onClick={() => onRemovePerson(person.id)}>delete</button>
       </li>
     ))}
   </ul>
@@ -77,13 +78,29 @@ const App = () => {
       });
   };
 
+  const removePerson = id => {
+    const person = persons.find(p => p.id === id);
+    if (!person) return;
+
+    const confirmRemove = window.confirm(`Delete ${person.name}?`);
+    if (confirmRemove) {
+      personService.remove(id)
+        .then(() => {
+          setPersons(persons.filter(p => p.id !== id));
+        })
+        .catch(error => {
+          console.error('Error deleting person:', error);
+        });
+    }
+  };
+
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(filterName.toLowerCase())
   );
 
   return (
-    <div>
-      <h2>Phonebook</h2>
+    <div className='root'>
+      <h1>Phonebook</h1>
       <Filter filterName={filterName} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm
@@ -93,8 +110,8 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         addPerson={addPerson}
       />
-      <h3>Numbers</h3>
-      <Persons filteredPersons={filteredPersons} />
+      <h2>Numbers</h2>
+      <Persons filteredPersons={filteredPersons} onRemovePerson={removePerson} />
     </div>
   );
 };
